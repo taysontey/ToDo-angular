@@ -1,0 +1,20 @@
+<form #tarefaForm="ngForm" (ngSubmit)="onSubmit(tarefaForm)">   
+  <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Id">
+    <div>
+      <div class="form-group col-md-6">
+        <input class="input is-rounded" name="Nome" #Nome="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Nome"
+          placeholder="Nome" required>
+      </div>
+      <div class="form-group col-md-6">
+        <input class="form-control" name="Descricao" #LastName="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Descricao" placeholder="Descrição"
+          required>
+      </div>
+    </div>
+       
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <button [disabled]="!tarefaForm.valid" type="submit" class="btn btn-lg btn-block btn-info">
+          <i class="fa fa-floppy-o"></i> Submit</button>
+      </div>
+    </div>
+  </form>
