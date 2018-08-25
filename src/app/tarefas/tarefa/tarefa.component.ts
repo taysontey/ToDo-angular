@@ -22,7 +22,8 @@ export class TarefaComponent implements OnInit {
     this.tarefaService.selectedTarefa = {
       Id: 0,
       Nome: '',
-      Descricao: ''
+      Descricao: '',
+      Concluida: false
     }
   }
 

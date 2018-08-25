@@ -1,20 +1,35 @@
-<form #tarefaForm="ngForm" (ngSubmit)="onSubmit(tarefaForm)">   
+<div class="columns is-centered">
+      <h3 class="title is-3">Tarefa</h3>    
+</div>
+
+<form #tarefaForm="ngForm">
+
   <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Id">
-    <div>
-      <div class="form-group col-md-6">
-        <input class="input is-rounded" name="Nome" #Nome="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Nome"
-          placeholder="Nome" required>
-      </div>
-      <div class="form-group col-md-6">
-        <input class="form-control" name="Descricao" #LastName="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Descricao" placeholder="Descrição"
-          required>
-      </div>
+
+  <div class="field">
+    <div class="control">
+      <input class="input is-rounded" type="text" name="Nome" #Nome="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Nome" placeholder="Nome"
+        required>
     </div>
-       
-    <div class="form-row">
-      <div class="form-group col-md-8">
-        <button [disabled]="!tarefaForm.valid" type="submit" class="btn btn-lg btn-block btn-info">
-          <i class="fa fa-floppy-o"></i> Submit</button>
-      </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <textarea class="textarea is-rounded" type="text" name="Descricao" #Descricao="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Descricao"
+        placeholder="Descrição" required>
+      </textarea>
     </div>
-  </form>
+  </div>
+
+  <div class="buttons is-centered">
+    <div class="column is-half">
+      <p class="control">
+        <a class="button is-primary is-rounded" (click)="onSubmit(tarefaForm)">Adicionar</a>
+      </p>
+    </div>
+    <p class="control">
+      <a class="button is-rounded" (click)="onSubmit(tarefaForm)">Concluir tarefa</a>
+    </p>
+  </div>
+
+</form>
