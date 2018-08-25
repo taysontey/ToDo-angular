@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TarefaService } from '../shared/tarefa.service'
-import { Tarefa } from '../shared/tarefa.model'; 
+import { Tarefa } from '../shared/tarefa.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tarefa-list',
@@ -12,13 +13,23 @@ export class TarefaListComponent implements OnInit {
 
   tarefas: Tarefa[];
 
-  constructor(private tarefaService: TarefaService) { }
+  constructor(
+    private tarefaService: TarefaService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.tarefaService.getTarefas()
-    .subscribe(data => {
-    this.tarefas = data;
-    });
-  }  
+    this.tarefaService.getTarefas();
+  }
 
+  showForEdit(tarefa: Tarefa) {
+    this.tarefaService.selectedTarefa = Object.assign({}, tarefa);
+  }
+
+  onDelete(id: number) {
+    this.tarefaService.deleteTarefa(id)
+      .subscribe(data => {
+        this.tarefaService.getTarefas();
+        this.toastr.success("Tarefa excluída!");
+      })
+  }
 }

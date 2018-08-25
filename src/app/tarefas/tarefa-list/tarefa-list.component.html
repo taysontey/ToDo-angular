@@ -1,5 +1,50 @@
-<table class="table table-sm table-hover">
-  <tr *ngFor="let tarefa of tarefas">
-    <td>{{tarefa.Nome}} - {{tarefa.Descricao}}</td>
-  </tr>
+<div class="columns is-centered">
+  <h3 class="title is-3">Lista de tarefas</h3>
+</div>
+
+<table class="table is-fullwidth is-striped">
+  <thead>
+    <th>
+      <p class="has-text-centered">
+        Nome
+      </p>
+    </th>
+    <th>
+      <p class="has-text-centered">
+        Descrição
+      </p>
+    </th>
+    <th>
+      <p class="has-text-centered">
+        Opções
+      </p>
+    </th>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let tarefa of tarefaService.tarefas">
+
+      <td>
+        <p class="has-text-centered">
+          {{tarefa.Nome}}
+        </p>
+      </td>
+      <td>
+        <p class="has-text-centered">
+          {{tarefa.Descricao}}
+        </p>
+      </td>
+      <td>
+          <div class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <a class="button is-small is-primary" (click)="showForEdit(tarefa)">Editar</a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</a>
+            </p>
+          </div>
+      </td>
+    </tr>
+  </tbody>
+
 </table>

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { TarefasComponent } from './tarefas/tarefas.component';
 import { TarefaComponent } from './tarefas/tarefa/tarefa.component';
 import { TarefaListComponent } from './tarefas/tarefa-list/tarefa-list.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TarefaListComponent } from './tarefas/tarefa-list/tarefa-list.component
     FormsModule,
     HttpModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],
   providers: [],

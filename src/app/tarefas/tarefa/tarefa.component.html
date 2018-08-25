@@ -1,5 +1,5 @@
 <div class="columns is-centered">
-      <h3 class="title is-3">Tarefa</h3>    
+  <h3 class="title is-3">Tarefa</h3>
 </div>
 
 <form #tarefaForm="ngForm">
@@ -17,18 +17,18 @@
     <div class="control">
       <textarea class="textarea is-rounded" type="text" name="Descricao" #Descricao="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Descricao"
         placeholder="Descrição" required>
-      </textarea>
+        </textarea>
     </div>
   </div>
 
   <div class="buttons is-centered">
     <div class="column is-half">
       <p class="control">
-        <a class="button is-primary is-rounded" (click)="onSubmit(tarefaForm)">Adicionar</a>
+        <button class="button is-info is-rounded" (click)="onSubmit(tarefaForm)">Salvar</button>
       </p>
     </div>
     <p class="control">
-      <a class="button is-rounded" (click)="onSubmit(tarefaForm)">Concluir tarefa</a>
+      <button class="button is-warning is-rounded" (click)="onSubmit(tarefaForm)">Concluir tarefa</button>
     </p>
   </div>
 
