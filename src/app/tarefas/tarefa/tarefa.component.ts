@@ -23,7 +23,7 @@ export class TarefaComponent implements OnInit {
     if (form != null)
       form.reset();
     this.tarefaService.selectedTarefa = {
-      Id: 0,
+      Id: null,
       Nome: '',
       Descricao: '',
       Concluida: false
@@ -31,14 +31,14 @@ export class TarefaComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    if(form.value.Id == 0)
+    if(form.value.Id == null)
     {
       this.tarefaService.addTarefa(form.value)
       .subscribe(data => {
         this.resetForm(form);
         this.tarefaService.getTarefas();
         this.toastr.success('Tarefa adicionada com sucesso.');
-      });
+      }, err => this.toastr.error('Erro ao adicionar tarefa.'));
     }
     else
     {
@@ -47,7 +47,7 @@ export class TarefaComponent implements OnInit {
         this.resetForm(form);
         this.tarefaService.getTarefas();
         this.toastr.success('Tarefa atualizada com sucesso.');
-      });
+      }, err => this.toastr.error('Erro ao atualizar tarefa'));
     }  
   }
 }
