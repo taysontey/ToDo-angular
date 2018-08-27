@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms'
 
 import { TarefaService } from '../shared/tarefa.service';
 import { ToastrService } from 'ngx-toastr'
+import { Subtarefa } from '../shared/subtarefa.model';
 
 @Component({
   selector: 'app-tarefa',
@@ -26,7 +27,8 @@ export class TarefaComponent implements OnInit {
       Id: null,
       Nome: '',
       Descricao: '',
-      Concluida: false
+      Concluida: false,
+      Subtarefas: []
     }
   }
 

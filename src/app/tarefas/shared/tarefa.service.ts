@@ -8,7 +8,8 @@ export class TarefaService {
 
   selectedTarefa: Tarefa;
   tarefas: Tarefa[];
-  baseUrl: string = "http://localhost:58468/api/tarefa/";
+  filtro: string;
+  baseUrl: string = "http://localhost:58468/api/tarefa";
 
   constructor(private http: HttpClient) { }
 
@@ -21,13 +22,24 @@ export class TarefaService {
   }
 
   deleteTarefa(id: number) {
-    return this.http.delete(this.baseUrl + id);
+    return this.http.delete(this.baseUrl + "?id=" + id);
+  }
+
+  getTarefaPorId(id: number) {
+    return this.http.get<Tarefa>(this.baseUrl + "?id=" + id);
+  }
+
+  getTarefaPorFiltro(filtro: string) {
+    return this.http.get<Tarefa[]>(this.baseUrl + "?filtro=" + filtro)
+      .subscribe(data => {
+        this.tarefas = data;
+      });
   }
 
   getTarefas() {
     return this.http.get<Tarefa[]>(this.baseUrl)
       .subscribe(data => {
         this.tarefas = data;
-      });;
+      });
   }
 }

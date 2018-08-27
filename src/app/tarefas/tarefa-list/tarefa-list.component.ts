@@ -11,8 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TarefaListComponent implements OnInit {
 
-  tarefas: Tarefa[];
-
   constructor(
     private tarefaService: TarefaService,
     private toastr: ToastrService) { }
@@ -21,8 +19,15 @@ export class TarefaListComponent implements OnInit {
     this.tarefaService.getTarefas();
   }
 
-  showForEdit(tarefa: Tarefa) {
-    this.tarefaService.selectedTarefa = Object.assign({}, tarefa);
+  showForEdit(id: number) {
+    this.tarefaService.getTarefaPorId(id)
+      .subscribe(data => {
+        this.tarefaService.selectedTarefa = data
+      })
+  }
+
+  filtrarTarefas(filtro: string) {
+    this.tarefaService.getTarefaPorFiltro(filtro);
   }
 
   onDelete(id: number) {

@@ -1,5 +1,22 @@
-<div class="columns is-centered">
-  <h3 class="title is-3">Lista de tarefas</h3>
+<div class="columns">
+  
+  <div class="column is-half">
+    <h4 class="title is-4">Lista de tarefas</h4>
+  </div>
+
+  <div class="column is-half">
+  <div class="field is-grouped">
+    <p class="control is-expanded">
+      <input class="input" type="text" id="filtro" placeholder="Buscar tarefas">
+    </p>
+    <p class="control">
+      <a class="button is-info">
+        Buscar
+      </a>
+    </p>
+    </div>
+  </div>
+
 </div>
 
 <table class="table is-fullwidth is-striped">
@@ -47,7 +64,7 @@
       <td>
         <div class="field is-grouped is-grouped-centered">
           <p class="control">
-            <a class="button is-small is-primary" (click)="showForEdit(tarefa)">Editar</a>
+            <a class="button is-small is-primary" (click)="showForEdit(tarefa.Id)">Editar</a>
           </p>
           <p class="control">
             <a class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</a>
