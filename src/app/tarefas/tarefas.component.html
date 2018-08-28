@@ -1,9 +1,18 @@
-<div class="columns is-desktop">
-    <div class="column is-half">
-        <app-tarefa></app-tarefa>
+<div class="columns is-centered">
+    <h3 class="title is-3">Controle de tarefas</h3>
+</div>
+<hr>
 
+<div class="columns">
+    <progress class="progress is-small is-success" [value]="tarefaService.progressoTarefaConcluida" max="100"></progress>
+</div>
+<hr>
+
+<div class="columns">
+    <div class="column">
+        <app-tarefa></app-tarefa>
     </div>
-    <div class="column is-half">
+    <div class="column">
         <app-tarefa-list></app-tarefa-list>
     </div>
 </div>

@@ -19,14 +19,14 @@ export class TarefaListComponent implements OnInit {
     this.tarefaService.getTarefas();
   }
 
-  showForEdit(id: number) {
+  onEdit(id: number) {
     this.tarefaService.getTarefaPorId(id)
       .subscribe(data => {
         this.tarefaService.selectedTarefa = data
-      })
+      }, err => this.toastr.error('Erro ao obter tarefa por id.'))
   }
 
-  filtrarTarefas(filtro: string) {
+  onFilter(filtro: string) {
     this.tarefaService.getTarefaPorFiltro(filtro);
   }
 
@@ -34,7 +34,8 @@ export class TarefaListComponent implements OnInit {
     this.tarefaService.deleteTarefa(id)
       .subscribe(data => {
         this.tarefaService.getTarefas();
+        this.tarefaService.getProgressoTarefaConcluida();
         this.toastr.success("Tarefa excluída!");
-      })
+      }, err => this.toastr.error('Erro ao excluir tarefa.'))
   }
 }

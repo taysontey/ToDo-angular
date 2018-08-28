@@ -1,5 +1,5 @@
 <div class="columns is-centered">
-  <h3 class="title is-3">Tarefa</h3>
+  <h4 class="title is-4">Tarefa</h4>
 </div>
 
 <form #tarefaForm="ngForm">
@@ -21,9 +21,25 @@
     </div>
   </div>
 
+  <div class="buttons is-centered">
+    <div class="column is-half">
+      <p class="control">
+        <button class="button is-info" (click)="onSave(tarefaForm)">Salvar</button>
+      </p>
+    </div>
+    <p class="control">
+      <button class="button is-warning" (click)="onSave(tarefaForm, true)">Concluir tarefa</button>
+    </p>
+  </div>
   <hr>
-  <div class="columns is-centered">
-    <h4 class="title is-4">Subtarefas</h4>
+
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <h4 class="title is-4">Subtarefas</h4>
+    </div>
+    <div class="column is-one-quarter">
+      <button class="button is-primary" (click)="toggleModal()">Adicionar</button>
+    </div>
   </div>
 
   <table class="table is-fullwidth is-striped">
@@ -50,28 +66,32 @@
         <td>
           <div class="field is-grouped is-grouped-centered">
             <p class="control">
-              <a class="button is-small is-primary" (click)="showForEdit(tarefa)">Editar</a>
+              <button class="button is-small is-primary" (click)="onEdit(tarefa)">Editar</button>
             </p>
             <p class="control">
-              <a class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</a>
+              <button class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</button>
             </p>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <hr>
-
-  <div class="buttons is-centered">
-    <div class="column is-half">
-      <p class="control">
-        <button class="button is-info is-rounded" (click)="onSubmit(tarefaForm)">Salvar</button>
-      </p>
-    </div>
-    <p class="control">
-      <button class="button is-warning is-rounded" (click)="onSubmit(tarefaForm)">Concluir tarefa</button>
-    </p>
-  </div>
-  <hr>
   
 </form>
+
+<div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
+  <div class="modal-background" (click)="toggleModal()"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modal title</p>
+      <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Save changes</button>
+      <button class="button" (click)="toggleModal()">Cancel</button>
+    </footer>
+  </div>
+</div>

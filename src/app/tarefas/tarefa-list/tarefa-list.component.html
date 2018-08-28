@@ -1,22 +1,21 @@
-<div class="columns">
+<div class="columns is-centered">
   
-  <div class="column is-half">
-    <h4 class="title is-4">Lista de tarefas</h4>
+  <div class="column is-one-fifth">
+    <h4 class="title is-4">Tarefas</h4>
   </div>
 
-  <div class="column is-half">
-  <div class="field is-grouped">
-    <p class="control is-expanded">
-      <input class="input" type="text" id="filtro" placeholder="Buscar tarefas">
-    </p>
-    <p class="control">
-      <a class="button is-info">
-        Buscar
-      </a>
-    </p>
+  <div class="column">
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <input class="input" type="text" #filtro placeholder="Buscar tarefas">
+      </p>
+      <p class="control">
+        <a class="button is-info" (click)="onFilter(filtro.value)">
+          Buscar
+        </a>
+      </p>
     </div>
   </div>
-
 </div>
 
 <table class="table is-fullwidth is-striped">
@@ -42,10 +41,8 @@
       </p>
     </th>
   </thead>
-
   <tbody>
     <tr *ngFor="let tarefa of tarefaService.tarefas">
-
       <td>
         <p class="has-text-centered">
           {{tarefa.Nome}}
@@ -64,14 +61,13 @@
       <td>
         <div class="field is-grouped is-grouped-centered">
           <p class="control">
-            <a class="button is-small is-primary" (click)="showForEdit(tarefa.Id)">Editar</a>
+            <button class="button is-small is-primary" [disabled]="tarefa.Concluida" (click)="onEdit(tarefa.Id)">Editar</button>
           </p>
           <p class="control">
-            <a class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</a>
+            <button class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</button>
           </p>
         </div>
       </td>
     </tr>
   </tbody>
-
 </table>

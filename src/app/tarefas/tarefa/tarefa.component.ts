@@ -16,8 +16,14 @@ export class TarefaComponent implements OnInit {
     private tarefaService: TarefaService,
     private toastr: ToastrService) { }
 
+  isModalActive: boolean = false;
+
   ngOnInit() {
     this.resetForm();
+  }
+
+  toggleModal() {
+    this.isModalActive = !this.isModalActive;
   }
 
   resetForm(form?: NgForm) {
@@ -32,24 +38,28 @@ export class TarefaComponent implements OnInit {
     }
   }
 
-  onSubmit(form: NgForm){
-    if(form.value.Id == null)
-    {
+  onSave(form: NgForm, concluida: boolean) {
+
+    if (concluida)
+      form.value.Concluida = concluida;
+
+    if (form.value.Id == null) {
       this.tarefaService.addTarefa(form.value)
-      .subscribe(data => {
-        this.resetForm(form);
-        this.tarefaService.getTarefas();
-        this.toastr.success('Tarefa adicionada com sucesso.');
-      }, err => this.toastr.error('Erro ao adicionar tarefa.'));
+        .subscribe(data => {
+          this.resetForm(form);
+          this.tarefaService.getTarefas();
+          this.tarefaService.getProgressoTarefaConcluida();
+          this.toastr.success('Tarefa adicionada com sucesso.');
+        }, err => this.toastr.error('Erro ao adicionar tarefa.'));
     }
-    else
-    {
+    else {
       this.tarefaService.editTarefa(form.value)
-      .subscribe(data => {
-        this.resetForm(form);
-        this.tarefaService.getTarefas();
-        this.toastr.success('Tarefa atualizada com sucesso.');
-      }, err => this.toastr.error('Erro ao atualizar tarefa'));
-    }  
+        .subscribe(data => {
+          this.resetForm(form);
+          this.tarefaService.getTarefas();
+          this.tarefaService.getProgressoTarefaConcluida();
+          this.toastr.success('Tarefa atualizada com sucesso.');
+        }, err => this.toastr.error('Erro ao atualizar tarefa.'));
+    }
   }
 }
