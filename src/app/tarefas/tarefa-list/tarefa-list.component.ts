@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TarefaService } from '../shared/tarefa.service'
-import { Tarefa } from '../shared/tarefa.model';
 import { ToastrService } from 'ngx-toastr';
+import { Tarefa } from '../shared/tarefa.model';
 
 @Component({
   selector: 'app-tarefa-list',
@@ -19,23 +19,20 @@ export class TarefaListComponent implements OnInit {
     this.tarefaService.getTarefas();
   }
 
-  onEdit(id: number) {
-    this.tarefaService.getTarefaPorId(id)
-      .subscribe(data => {
-        this.tarefaService.selectedTarefa = data
-      }, err => this.toastr.error('Erro ao obter tarefa por id.'))
-  }
-
-  onFilter(filtro: string) {
+  onFilterTarefa(filtro: string) {
     this.tarefaService.getTarefaPorFiltro(filtro);
   }
 
-  onDelete(id: number) {
-    this.tarefaService.deleteTarefa(id)
-      .subscribe(data => {
-        this.tarefaService.getTarefas();
-        this.tarefaService.getProgressoTarefaConcluida();
-        this.toastr.success("Tarefa excluída!");
-      }, err => this.toastr.error('Erro ao excluir tarefa.'))
+  onEditTarefa(id: number) {
+    this.tarefaService.getTarefaPorId(id);
+  }
+
+  onConcluirTarefa(tarefa: Tarefa) {
+    tarefa.Concluida = true;
+    this.tarefaService.editTarefa(tarefa);
+  }
+
+  onDeleteTarefa(id: number) {
+    this.tarefaService.deleteTarefa(id);
   }
 }

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
 import { Tarefa } from './tarefa.model';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr'
@@ -19,19 +18,37 @@ export class TarefaService {
     private toastr: ToastrService) { }
 
   addTarefa(tarefa: Tarefa) {
-    return this.http.post(this.baseUrl, tarefa);
+    return this.http.post(this.baseUrl, tarefa)
+      .subscribe(data => {
+        this.getTarefas();
+        this.getProgressoTarefaConcluida();
+        this.toastr.success('Tarefa adicionada com sucesso.');
+      }, err => this.toastr.error('Erro ao adicionar tarefa.'));
   }
 
   editTarefa(tarefa: Tarefa) {
-    return this.http.put(this.baseUrl, tarefa);
+    return this.http.put(this.baseUrl, tarefa)
+      .subscribe(data => {
+        this.getTarefas();
+        this.getProgressoTarefaConcluida();
+        this.toastr.success('Tarefa atualizada com sucesso.');
+      }, err => this.toastr.error('Erro ao atualizar tarefa.'));
   }
 
   deleteTarefa(id: number) {
-    return this.http.delete(this.baseUrl + "?id=" + id);
+    return this.http.delete(this.baseUrl + "?id=" + id)
+      .subscribe(data => {
+        this.getTarefas();
+        this.getProgressoTarefaConcluida();
+        this.toastr.success("Tarefa excluída!");
+      }, err => this.toastr.error('Erro ao excluir tarefa.'));
   }
 
   getTarefaPorId(id: number) {
-    return this.http.get<Tarefa>(this.baseUrl + "?id=" + id);
+    return this.http.get<Tarefa>(this.baseUrl + "?id=" + id)
+      .subscribe(data => {
+        this.selectedTarefa = data
+      }, err => this.toastr.error('Erro ao obter tarefa por id.'));;
   }
 
   getTarefaPorFiltro(filtro: string) {

@@ -1,6 +1,4 @@
-<div class="columns is-centered">
-  <h4 class="title is-4">Tarefa</h4>
-</div>
+<h4 class="title is-4">Tarefa</h4>
 
 <form #tarefaForm="ngForm">
 
@@ -20,33 +18,27 @@
         </textarea>
     </div>
   </div>
-
-  <div class="buttons is-centered">
-    <div class="column is-half">
-      <p class="control">
-        <button class="button is-info" (click)="onSave(tarefaForm)">Salvar</button>
-      </p>
-    </div>
-    <p class="control">
-      <button class="button is-warning" (click)="onSave(tarefaForm, true)">Concluir tarefa</button>
-    </p>
-  </div>
   <hr>
 
-  <div class="columns">
-    <div class="column is-one-quarter">
-      <h4 class="title is-4">Subtarefas</h4>
+  <div class="columns is-mobile">
+    <div class="column is-half has-text-right">
+      <h5 class="title is-5">Subtarefas</h5>
     </div>
-    <div class="column is-one-quarter">
-      <button class="button is-primary" (click)="toggleModal()">Adicionar</button>
+    <div class="column has-text-left">
+      <button class="button is-small is-primary" (click)="onAddSubtarefa()">Adicionar</button>
     </div>
   </div>
 
-  <table class="table is-fullwidth is-striped">
+  <table class="table is-striped is-narrow is-fullwidth">
     <thead>
       <th>
         <p class="has-text-centered">
           Nome
+        </p>
+      </th>
+      <th>
+        <p class="has-text-centered">
+          Concluída
         </p>
       </th>
       <th>
@@ -64,34 +56,55 @@
           </p>
         </td>
         <td>
+            <p class="has-text-centered">
+              <input type="checkbox" disabled [(ngModel)]="subtarefa.Concluida" [ngModelOptions]="{standalone: true}">
+            </p>
+          </td>
+        <td>
           <div class="field is-grouped is-grouped-centered">
             <p class="control">
-              <button class="button is-small is-primary" (click)="onEdit(tarefa)">Editar</button>
+              <button class="button is-small" [disabled]="subtarefa.Concluida" (click)="onEditSubtarefa(subtarefa.Id)">Editar</button>
             </p>
             <p class="control">
-              <button class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</button>
+                <button class="button is-small is-success" [disabled]="subtarefa.Concluida" (click)="onConcluirSubtarefa(subtarefa)">Concluir</button>
+              </p>
+            <p class="control">
+              <button class="button is-small is-danger" (click)="onDeleteSubtarefa(subtarefa.Id)">Excluir</button>
             </p>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  
+  <hr>
+  <div class="buttons is-centered">
+    <div class="columns">
+      <p class="control">
+        <button class="button is-info" (click)="onSaveTarefa(tarefaForm)">Salvar</button>
+      </p>
+    </div>
+  </div>
+  <hr>
+
 </form>
 
 <div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
-  <div class="modal-background" (click)="toggleModal()"></div>
+  <div class="modal-background" (click)="onToggleModal()"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Modal title</p>
-      <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+      <p class="modal-card-title">Subtarefa</p>
     </header>
     <section class="modal-card-body">
-      <!-- Content ... -->
+      <div class="field">
+        <div class="control">
+          <input class="input is-rounded" type="text" name="Nome" #Nome="ngModel" [(ngModel)]="subtarefaService.selectedsubtarefa.Nome"
+            placeholder="Nome" required>
+        </div>
+      </div>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Save changes</button>
-      <button class="button" (click)="toggleModal()">Cancel</button>
+      <button class="button is-info" (click)="onSaveSubtarefa(subtarefaService.selectedsubtarefa)">Salvar</button>
+      <button class="button" (click)="onToggleModal()">Cancelar</button>
     </footer>
   </div>
 </div>

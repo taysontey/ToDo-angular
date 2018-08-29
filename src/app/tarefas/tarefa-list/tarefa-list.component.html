@@ -1,6 +1,5 @@
-<div class="columns is-centered">
-  
-  <div class="column is-one-fifth">
+<div class="columns is-mobile">
+  <div class="column is-one-quarter">
     <h4 class="title is-4">Tarefas</h4>
   </div>
 
@@ -10,7 +9,7 @@
         <input class="input" type="text" #filtro placeholder="Buscar tarefas">
       </p>
       <p class="control">
-        <a class="button is-info" (click)="onFilter(filtro.value)">
+        <a class="button is-info" (click)="onFilterTarefa(filtro.value)">
           Buscar
         </a>
       </p>
@@ -18,7 +17,7 @@
   </div>
 </div>
 
-<table class="table is-fullwidth is-striped">
+<table class="table is-striped is-narrow is-fullwidth">
   <thead>
     <th>
       <p class="has-text-centered">
@@ -61,10 +60,13 @@
       <td>
         <div class="field is-grouped is-grouped-centered">
           <p class="control">
-            <button class="button is-small is-primary" [disabled]="tarefa.Concluida" (click)="onEdit(tarefa.Id)">Editar</button>
+            <button class="button is-small" [disabled]="tarefa.Concluida" (click)="onEditTarefa(tarefa.Id)">Editar</button>
           </p>
           <p class="control">
-            <button class="button is-small is-danger" (click)="onDelete(tarefa.Id)">Excluir</button>
+            <button class="button is-small is-success" [disabled]="tarefa.Concluida" (click)="onConcluirTarefa(tarefa)">Concluir</button>
+          </p>
+          <p class="control">
+            <button class="button is-small is-danger" (click)="onDeleteTarefa(tarefa.Id)">Excluir</button>
           </p>
         </div>
       </td>

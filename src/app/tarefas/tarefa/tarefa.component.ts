@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms'
 import { TarefaService } from '../shared/tarefa.service';
 import { ToastrService } from 'ngx-toastr'
 import { Subtarefa } from '../shared/subtarefa.model';
+import { SubtarefaService } from '../shared/subtarefa.service';
 
 @Component({
   selector: 'app-tarefa',
@@ -14,52 +15,112 @@ export class TarefaComponent implements OnInit {
 
   constructor(
     private tarefaService: TarefaService,
+    private subtarefaService: SubtarefaService,
     private toastr: ToastrService) { }
 
   isModalActive: boolean = false;
 
   ngOnInit() {
     this.resetForm();
+    this.resetSelectedTarefa();
+    this.resetSelectedSubtarefa();
   }
 
-  toggleModal() {
-    this.isModalActive = !this.isModalActive;
+  onToggleModal() {
+    if (this.tarefaService.selectedTarefa.Id == null)
+      this.toastr.error('Primeiro salve a tarefa.');
+    else
+      this.isModalActive = !this.isModalActive;
   }
 
   resetForm(form?: NgForm) {
     if (form != null)
       form.reset();
+  }
+
+  resetSelectedTarefa() {
     this.tarefaService.selectedTarefa = {
       Id: null,
       Nome: '',
       Descricao: '',
       Concluida: false,
       Subtarefas: []
-    }
+    };
   }
 
-  onSave(form: NgForm, concluida: boolean) {
+  resetSelectedSubtarefa() {
+    this.subtarefaService.selectedsubtarefa = {
+      Id: null,
+      Nome: '',
+      Concluida: false,
+      IdTarefa: null
+    };
+  }
 
-    if (concluida)
-      form.value.Concluida = concluida;
+  onSaveTarefa(form: NgForm) {
 
     if (form.value.Id == null) {
       this.tarefaService.addTarefa(form.value)
-        .subscribe(data => {
-          this.resetForm(form);
-          this.tarefaService.getTarefas();
-          this.tarefaService.getProgressoTarefaConcluida();
-          this.toastr.success('Tarefa adicionada com sucesso.');
-        }, err => this.toastr.error('Erro ao adicionar tarefa.'));
+        .add(tearDown => {
+          this.resetForm();
+          this.resetSelectedTarefa();
+        });
     }
     else {
       this.tarefaService.editTarefa(form.value)
-        .subscribe(data => {
-          this.resetForm(form);
-          this.tarefaService.getTarefas();
-          this.tarefaService.getProgressoTarefaConcluida();
-          this.toastr.success('Tarefa atualizada com sucesso.');
-        }, err => this.toastr.error('Erro ao atualizar tarefa.'));
+        .add(tearDown => {
+          this.resetForm();
+          this.resetSelectedTarefa();
+        });
     }
+  }
+
+  onAddSubtarefa() {
+    this.onToggleModal();
+    this.resetSelectedSubtarefa();
+  }
+
+  onSaveSubtarefa(subtarefa: Subtarefa) {
+
+    subtarefa.IdTarefa = this.tarefaService.selectedTarefa.Id;
+
+    if (subtarefa.Id == null) {
+      this.subtarefaService.addSubtarefa(subtarefa)
+        .add(tearDown => {
+          this.resetSelectedSubtarefa();
+          this.tarefaService.getTarefaPorId(this.tarefaService.selectedTarefa.Id);
+        })
+    }
+    else {
+      this.subtarefaService.editSubtarefa(subtarefa)
+        .add(tearDown => {
+          this.resetSelectedSubtarefa();
+          this.tarefaService.getTarefaPorId(this.tarefaService.selectedTarefa.Id);
+        })
+    }
+
+    this.isModalActive = !this.isModalActive;
+  }
+
+  onEditSubtarefa(id: number) {
+    this.isModalActive = !this.isModalActive;
+    this.subtarefaService.getSubtarefaPorId(id);
+  }
+
+  onConcluirSubtarefa(subtarefa: Subtarefa) {
+
+    subtarefa.Concluida = true;
+
+    this.subtarefaService.editSubtarefa(subtarefa)
+      .add(tearDown => {
+        this.tarefaService.getTarefaPorId(this.tarefaService.selectedTarefa.Id);
+      })
+  }
+
+  onDeleteSubtarefa(id: number) {
+    this.subtarefaService.deleteSubtarefa(id)
+      .add(tearDown => {
+        this.tarefaService.getTarefaPorId(this.tarefaService.selectedTarefa.Id);
+      })
   }
 }
