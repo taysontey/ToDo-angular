@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
+import {Router} from '@angular/router';
 
 import { TarefaService } from '../shared/tarefa.service';
 import { ToastrService } from 'ngx-toastr'
@@ -16,7 +17,8 @@ export class TarefaComponent implements OnInit {
   constructor(
     private tarefaService: TarefaService,
     private subtarefaService: SubtarefaService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private router: Router) { }
 
   isModalActive: boolean = false;
 
@@ -73,6 +75,8 @@ export class TarefaComponent implements OnInit {
           this.resetSelectedTarefa();
         });
     }
+
+    this.router.navigate(['tarefaList']);
   }
 
   onAddSubtarefa() {

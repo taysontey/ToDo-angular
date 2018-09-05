@@ -5,15 +5,15 @@ import { HttpModule } from '@angular/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { TarefasComponent } from './tarefas/tarefas.component';
 import { TarefaComponent } from './tarefas/tarefa/tarefa.component';
 import { TarefaListComponent } from './tarefas/tarefa-list/tarefa-list.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RouteModule } from './route/route.module';
+import { TarefaService } from './tarefas/shared/tarefa.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TarefasComponent,
     TarefaComponent,
     TarefaListComponent
   ],
@@ -23,9 +23,10 @@ import { ToastrModule } from 'ngx-toastr';
     HttpModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouteModule
   ],
-  providers: [],
+  providers: [TarefaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
