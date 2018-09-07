@@ -1,3 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bulma/css/bulma.css';
 @import '~ngx-toastr/toastr.css';
+
+.toast-container .toast {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 5px 15px 10px 50px;
+    width: 300px;
+    border-radius: 3px 3px 3px 3px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    box-shadow: 0 0 12px #999999;
+    color: #FFFFFF;
+}
+
+.toast-top-right {
+    top: 12px;
+    right: 30px;
+}

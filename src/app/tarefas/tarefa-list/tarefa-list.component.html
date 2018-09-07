@@ -14,7 +14,7 @@
 
 <div class="columns has-text-centered">
   <div class="column">
-      <h6 class="title is-6">Tarefas</h6> 
+    <h6 class="title is-6">Tarefas</h6>
   </div>
 </div>
 
@@ -25,53 +25,39 @@
         <input class="input is-small" (input)="onFilterTarefa(filtro.value)" type="text" #filtro placeholder="Buscar tarefas">
       </p>
       <p class="control">
-          <a class="button is-small is-primary" (click)="onAddTarefa()">
-            <i class="fas fa-plus"></i>
-          </a>
-        </p>
+        <a class="button is-small is-primary" (click)="onAddTarefa()">
+          <i class="fas fa-plus"></i>
+        </a>
+      </p>
     </div>
   </div>
 </div>
 
-<table class="table is-striped is-narrow is-fullwidth">
+<table class="table is-hoverable is-striped is-narrow is-fullwidth">
   <thead>
-    <th>
-      <p class="has-text-centered title is-7">
-        Nome
-      </p>
+    <th class="has-text-centered title is-7">
+      Nome
     </th>
-    <th>
-      <p class="has-text-centered title is-7">
-        Descrição
-      </p>
+    <th class="has-text-centered title is-7">
+      Descrição
     </th>
-    <th>
-      <p class="has-text-centered title is-7">
-        Concluída
-      </p>
+    <th class="has-text-centered title is-7">
+      Concluída
     </th>
-    <th>
-      <p class="has-text-centered title is-7">
-        Opções
-      </p>
+    <th class="has-text-centered title is-7">
+      Opções
     </th>
   </thead>
   <tbody>
     <tr *ngFor="let tarefa of tarefaService.tarefas">
-      <td>
-        <p class="has-text-centered title is-7">
-          {{tarefa.Nome}}
-        </p>
+      <td class="has-text-centered title is-7">
+        {{tarefa.Nome}}
       </td>
-      <td>
-        <p class="has-text-centered title is-7">
-          {{tarefa.Descricao}}
-        </p>
+      <td class="has-text-centered title is-7">
+        {{tarefa.Descricao}}
       </td>
-      <td>
-        <p class="has-text-centered title is-7">
-          <input type="checkbox" disabled [(ngModel)]="tarefa.Concluida">
-        </p>
+      <td class="has-text-centered title is-7">
+        <input type="checkbox" disabled [(ngModel)]="tarefa.Concluida">
       </td>
       <td>
         <div class="field is-grouped is-grouped-centered">

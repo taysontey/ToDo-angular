@@ -1,90 +1,100 @@
-<h4 class="title is-4">Tarefa</h4>
+<hr>
+<div class="columns has-text-centered">
+  <div class="column is-12">
+    <h5 class="title is-6">Tarefa</h5>
+  </div>
+</div>
 
 <form #tarefaForm="ngForm">
 
-  <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Id">
-
+  <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="tarefaService.tarefa.Id">
+  
   <div class="field">
     <div class="control">
-      <input class="input is-rounded" type="text" name="Nome" #Nome="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Nome" placeholder="Nome"
-        required>
+      <input class="input is-rounded is-small" type="text" name="Nome" #Nome="ngModel" [(ngModel)]="tarefaService.tarefa.Nome"
+        placeholder="Nome" required>
     </div>
   </div>
-
+  
   <div class="field">
     <div class="control">
-      <textarea class="textarea is-rounded" type="text" name="Descricao" #Descricao="ngModel" [(ngModel)]="tarefaService.selectedTarefa.Descricao"
+      <textarea class="textarea is-rounded is-small" type="text" name="Descricao" #Descricao="ngModel" [(ngModel)]="tarefaService.tarefa.Descricao"
         placeholder="Descrição" required>
         </textarea>
     </div>
   </div>
-  <hr>
 
-  <div class="columns is-mobile">
-    <div class="column is-half has-text-right">
-      <h5 class="title is-5">Subtarefas</h5>
-    </div>
-    <div class="column has-text-left">
-      <button class="button is-small is-primary" (click)="onAddSubtarefa()">Adicionar</button>
+  <div class="columns has-text-centered">
+    <div class="column">
+      <div class="field is-grouped is-grouped-centered">
+        <p class="control title is-6">
+          Subtarefas
+        </p>
+        <p class="control">
+          <a class="button is-small is-primary" (click)="onAddSubtarefa()">
+            <i class="fas fa-plus"></i>
+          </a>
+        </p>
+      </div>
     </div>
   </div>
 
-  <table class="table is-striped is-narrow is-fullwidth">
+  <table *ngIf="tarefaService.tarefa.Subtarefas.length > 0" class="table is-striped is-narrow is-fullwidth">
     <thead>
-      <th>
-        <p class="has-text-centered">
-          Nome
-        </p>
+      <th class="has-text-centered title is-7">
+        Nome
       </th>
-      <th>
-        <p class="has-text-centered">
-          Concluída
-        </p>
+      <th class="has-text-centered title is-7">
+        Concluída
       </th>
-      <th>
-        <p class="has-text-centered">
-          Opções
-        </p>
+      <th class="has-text-centered title is-7">
+        Opções
       </th>
     </thead>
-
     <tbody>
-      <tr *ngFor="let subtarefa of tarefaService.selectedTarefa.Subtarefas">
-        <td>
-          <p class="has-text-centered">
-            {{subtarefa.Nome}}
-          </p>
+      <tr *ngFor="let subtarefa of tarefaService.tarefa.Subtarefas">
+        <td class="has-text-centered title is-7">
+          {{subtarefa.Nome}}
         </td>
-        <td>
-            <p class="has-text-centered">
-              <input type="checkbox" disabled [(ngModel)]="subtarefa.Concluida" [ngModelOptions]="{standalone: true}">
-            </p>
-          </td>
+        <td class="has-text-centered title is-7">
+          <input type="checkbox" disabled [(ngModel)]="subtarefa.Concluida" [ngModelOptions]="{standalone: true}">
+        </td>
         <td>
           <div class="field is-grouped is-grouped-centered">
             <p class="control">
-              <button class="button is-small" [disabled]="subtarefa.Concluida" (click)="onEditSubtarefa(subtarefa.Id)">Editar</button>
+              <button class="button is-small" [disabled]="subtarefa.Concluida" (click)="onEditSubtarefa(subtarefa.Id)">
+                <i class="fas fa-pen"></i>
+              </button>
             </p>
             <p class="control">
-                <button class="button is-small is-success" [disabled]="subtarefa.Concluida" (click)="onConcluirSubtarefa(subtarefa)">Concluir</button>
-              </p>
+              <button class="button is-small is-success" [disabled]="subtarefa.Concluida" (click)="onConcluirSubtarefa(subtarefa)">
+                <i class="fas fa-check"></i>
+              </button>
+            </p>
             <p class="control">
-              <button class="button is-small is-danger" (click)="onDeleteSubtarefa(subtarefa.Id)">Excluir</button>
+              <button class="button is-small is-danger" (click)="onDeleteSubtarefa(subtarefa.Id)">
+                <i class="fas fa-times"></i>
+              </button>
             </p>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+
   <hr>
-  <div class="buttons is-centered">
-    <div class="columns">
-      <p class="control">
-        <button class="button is-info" (click)="onSaveTarefa(tarefaForm)">Salvar</button>
-      </p>
-    </div>
+  <div class="field is-grouped is-grouped-centered">
+    <p class="control">
+      <button class="button is-info is-small" (click)="onSaveTarefa(tarefaForm)">
+        Salvar
+      </button>
+    </p>
+    <p class="control">
+      <button class="button is-small" (click)="onCancelar()">
+        Cancelar
+      </button>
+    </p>
   </div>
-  <hr>
 
 </form>
 
@@ -92,19 +102,19 @@
   <div class="modal-background" (click)="onToggleModal()"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Subtarefa</p>
+      <p class="title is-6">Subtarefa</p>
     </header>
     <section class="modal-card-body">
       <div class="field">
         <div class="control">
-          <input class="input is-rounded" type="text" name="Nome" #Nome="ngModel" [(ngModel)]="subtarefaService.selectedsubtarefa.Nome"
+          <input class="input is-rounded is-small" type="text" name="Nome" #Nome="ngModel" [(ngModel)]="subtarefaService.subtarefa.Nome"
             placeholder="Nome" required>
         </div>
       </div>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-info" (click)="onSaveSubtarefa(subtarefaService.selectedsubtarefa)">Salvar</button>
-      <button class="button" (click)="onToggleModal()">Cancelar</button>
+      <button class="button is-info is-small" (click)="onSaveSubtarefa(subtarefaService.subtarefa)">Salvar</button>
+      <button class="button is-small" (click)="onToggleModal()">Cancelar</button>
     </footer>
   </div>
 </div>
