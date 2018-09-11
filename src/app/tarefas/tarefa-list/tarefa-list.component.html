@@ -22,7 +22,7 @@
   <div class="column">
     <div class="field is-grouped">
       <p class="control is-expanded">
-        <input class="input is-small" [disabled]="tarefaService.tarefas.length === 0" (input)="onFilterTarefa(filtro.value)"
+        <input class="input is-small" (input)="onFilterTarefa(filtro.value)"
           type="text" #filtro placeholder="Buscar tarefas">
       </p>
       <p class="control">
