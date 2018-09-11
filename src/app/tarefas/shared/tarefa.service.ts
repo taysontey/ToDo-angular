@@ -8,7 +8,7 @@ export class TarefaService {
   baseUrl: string = "http://localhost:58468/api/tarefa";
 
   tarefa: Tarefa;
-  tarefas: Tarefa[];
+  tarefas: Tarefa[] = [];
   filtro: string;
   progressoTarefaConcluida: number = 0;
 

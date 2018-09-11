@@ -20,3 +20,7 @@
     top: 12px;
     right: 30px;
 }
+
+.table.is-narrow td, .table.is-narrow th {
+    padding: 0.30em 0.10em;
+}

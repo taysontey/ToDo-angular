@@ -22,6 +22,7 @@ export class TarefaListComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   recarregar() {
